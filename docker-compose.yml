@@ -2,23 +2,10 @@ version: "3"
 
 services:
   app:
-    container_name: api/node
     build: .
     command: npm start
     ports:
       - "8080:8080"
     volumes:
       - .:/usr/app
-    environment:
-      NODE_ENV: development
-    depends_on:
-      - db
-    links:
-      - db
-  db:
-    image: 'mongo'
-    container_name: MONGODB
-    ports:
-      - '27017:27017'
-    volumes:
-      - ./data/db:/data/db
+

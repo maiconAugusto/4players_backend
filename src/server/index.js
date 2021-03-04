@@ -11,7 +11,11 @@ class Server {
   }
 
   async ConnectionDatabse() {
-    await Database;
+    await Database.then(() => {
+      console.log('mongoOK');
+    }).catch((err) => {
+      console.log(err);
+    });
   }
 
   middleware() {
