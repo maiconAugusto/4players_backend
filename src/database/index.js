@@ -1,4 +1,7 @@
 import Mongoose from 'mongoose';
 
-const database = Mongoose.connect('mongodb://db:27017/4players', { useNewUrlParser: true });
+require('dotenv').config();
+
+const database = Mongoose.connect(process.env.MONGO,
+  { useNewUrlParser: true, useUnifiedTopology: true });
 export default database;

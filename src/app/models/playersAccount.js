@@ -5,9 +5,12 @@ const players = Mongoose.Schema({
   playerAge: { type: 'string', required: true },
   position: { type: Object, required: true },
   profile: { type: 'string', required: false },
+  playerHeight: { type: 'string', required: false },
+  city: { type: 'string', required: false },
+  country: { type: 'string', required: false },
   account: {
     type: Mongoose.Schema.Types.ObjectId,
     ref: 'accounts',
   },
 });
-export default players;
+export default Mongoose.model('players', players);

@@ -7,10 +7,11 @@ const clubs = Mongoose.Schema({
   president: { type: 'string', required: false },
   championships: { type: Array, required: false },
   webSite: { type: 'string', required: false },
-  favoritePlayers: { type: Array, required: false },
+  city: { type: 'string', required: false },
+  country: { type: 'string', required: false },
   account: {
     type: Mongoose.Schema.Types.ObjectId,
     ref: 'accounts',
   },
 });
-export default clubs;
+export default Mongoose.model('clubs', clubs);
