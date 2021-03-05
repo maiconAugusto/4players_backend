@@ -1,9 +1,9 @@
-import ModelAccount from '../models/account';
+import AccountModel from '../models/account';
 
 class Account {
   async index(request, response) {
     try {
-      const accounts = await ModelAccount.find({ active: true });
+      const accounts = await AccountModel.find({ active: true });
       return response.status(200).json({ accounts });
     } catch (error) {
       return response.status(400).json({ data: error });
@@ -14,7 +14,7 @@ class Account {
     try {
       const { id } = request.params;
 
-      const account = await ModelAccount.findById(id);
+      const account = await AccountModel.findById(id);
       if (!account) {
         return response.status(404).json({ error: 'account not found' });
       }
@@ -26,12 +26,12 @@ class Account {
 
   async store(request, response) {
     try {
-      const existAccount = await ModelAccount.findOne({ email: request.body.email });
+      const existAccount = await AccountModel.findOne({ email: request.body.email });
 
       if (existAccount) {
         return response.status(401).json({ error: 'user exist' });
       }
-      const account = await ModelAccount(request.body).save();
+      const account = await AccountModel(request.body).save();
       return response.status(201).json({ data: account });
     } catch (error) {
       return response.status(400).json({ data: error });
@@ -42,7 +42,7 @@ class Account {
     try {
       const { id } = request.params;
 
-      const account = await ModelAccount.findOneAndUpdate({ _id: id }, request.body);
+      const account = await AccountModel.findOneAndUpdate({ _id: id }, request.body);
       if (!account) {
         return response.status(404).json({ error: 'account not found' });
       }
@@ -56,7 +56,7 @@ class Account {
     try {
       const { id } = request.params;
 
-      const account = await ModelAccount.findByIdAndDelete(id);
+      const account = await AccountModel.findByIdAndDelete(id);
       if (!account) {
         return response.status(404).json({ error: 'account not found' });
       }
