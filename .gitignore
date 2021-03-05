@@ -105,4 +105,4 @@ dist
 
 .env
 
-.serviceAccountKey.json
+.json
