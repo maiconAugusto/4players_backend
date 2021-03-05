@@ -1,12 +1,16 @@
 import { Router } from 'express';
 
+import multer from 'multer';
+
 import AccountController from '../app/controllers/account';
 import PlayerController from '../app/controllers/playerAccounts';
 import ClubController from '../app/controllers/clubAccounts';
 import FavoriteClubController from '../app/controllers/favoriteClub';
 import FavoritePlayerController from '../app/controllers/favoritePlayers';
 import PlayerVideoController from '../app/controllers/playerVideos';
+import storage from '../configs/multer';
 
+const upload = multer(storage);
 const routes = new Router();
 
 routes.get('/accounts', AccountController.index);
@@ -17,14 +21,14 @@ routes.delete('/account/:id', AccountController.remove);
 
 routes.get('/players', PlayerController.index);
 routes.get('/player/:id', PlayerController.show);
-routes.post('/player', PlayerController.store);
-routes.put('/player/:id', PlayerController.update);
+routes.post('/player', upload.single('file'), PlayerController.store);
+routes.put('/player/:id', upload.single('file'), PlayerController.update);
 routes.delete('/player/:id', PlayerController.remove);
 
 routes.get('/clubs', ClubController.index);
 routes.get('/club/:id', ClubController.show);
-routes.post('/club', ClubController.store);
-routes.put('/club/:id', ClubController.update);
+routes.post('/club', upload.single('file'), ClubController.store);
+routes.put('/club/:id', upload.single('file'), ClubController.update);
 routes.delete('/club/:id', ClubController.remove);
 
 routes.get('/favoritesclubs', FavoriteClubController.index);
@@ -41,8 +45,8 @@ routes.delete('/favoritesplayer/:id', FavoritePlayerController.remove);
 
 routes.get('/playervideos', PlayerVideoController.index);
 routes.get('/playervideo/:id', PlayerVideoController.show);
-routes.post('/playervideo', PlayerVideoController.store);
-routes.put('/playervideo/:id', PlayerVideoController.update);
+routes.post('/playervideo', upload.single('file'), PlayerVideoController.store);
+routes.put('/playervideo/:id', upload.single('file'), PlayerVideoController.update);
 routes.delete('/playervideo/:id', PlayerVideoController.remove);
 
 export default routes;
