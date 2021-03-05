@@ -26,6 +26,11 @@ class Account {
 
   async store(request, response) {
     try {
+      const existAccount = await ModelAccount.findOne({ email: request.body.email });
+
+      if (existAccount) {
+        return response.status(401).json({ error: 'user exist' });
+      }
       const account = await ModelAccount(request.body).save();
       return response.status(201).json({ data: account });
     } catch (error) {
