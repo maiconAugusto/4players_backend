@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/supertest": "^2.0.10",
+    "bcrypt": "^5.0.1",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",

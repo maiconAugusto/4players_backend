@@ -1,3 +1,4 @@
+import Bcrypt from 'bcrypt';
 import AccountModel from '../models/account';
 
 class Account {
@@ -31,6 +32,8 @@ class Account {
       if (existAccount) {
         return response.status(401).json({ error: 'user exist' });
       }
+      request.body.password = await Bcrypt.hash(request.body.password, Bcrypt.genSaltSync(8));
+
       const account = await AccountModel(request.body).save();
       return response.status(201).json({ data: account });
     } catch (error) {

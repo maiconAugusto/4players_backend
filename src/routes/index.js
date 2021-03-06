@@ -8,10 +8,13 @@ import ClubController from '../app/controllers/clubAccounts';
 import FavoriteClubController from '../app/controllers/favoriteClub';
 import FavoritePlayerController from '../app/controllers/favoritePlayers';
 import PlayerVideoController from '../app/controllers/playerVideos';
+import AuthenticationController from '../app/controllers/authentication';
 import Storage from '../configs/multer';
 
 const upload = multer(Storage);
 const routes = new Router();
+
+routes.post('/authentication', AuthenticationController.store);
 
 routes.get('/accounts', AccountController.index);
 routes.post('/account', AccountController.store);
