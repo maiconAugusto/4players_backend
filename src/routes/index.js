@@ -14,7 +14,7 @@ import Storage from '../configs/multer';
 const upload = multer(Storage);
 const routes = new Router();
 
-routes.post('/authentication', AuthenticationController.store);
+routes.post('/auth', AuthenticationController.store);
 
 routes.get('/accounts', AccountController.index);
 routes.post('/account', AccountController.store);

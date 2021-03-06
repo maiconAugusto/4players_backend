@@ -19,7 +19,7 @@ class AuthenticationController {
       const verifyPassword = await Bcrypt.compare(password, account.password);
 
       if (verifyPassword === false) {
-        return response.status(401).json({ data: 'Senha inválida' });
+        return response.status(401).json({ error: 'Senha inválida' });
       }
       const { id } = account;
       account.password = undefined;
