@@ -106,3 +106,5 @@ dist
 .env
 serviceAccountKey.json
 .json
+
+.DS_Store
