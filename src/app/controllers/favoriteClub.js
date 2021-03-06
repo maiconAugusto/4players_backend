@@ -3,7 +3,8 @@ import FavoritesClubModel from '../models/favoriteClubs';
 class FavoritesClubController {
   async index(request, response) {
     try {
-      const data = await FavoritesClubModel.find();
+      const { id } = request.params;
+      const data = await FavoritesClubModel.find({ account: id }).populate('club');
       return response.status(200).json({ data });
     } catch (error) {
       return response.status(400);
@@ -13,7 +14,7 @@ class FavoritesClubController {
   async show(request, response) {
     try {
       const { id } = request.params;
-      const data = await FavoritesClubModel.findById(id);
+      const data = await FavoritesClubModel.findById(id).populate('club');
 
       if (!data) {
         return response.status(404).json({ error: 'not found' });

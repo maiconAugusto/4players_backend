@@ -3,7 +3,8 @@ import FavoritesPlayerModel from '../models/favoritePlayers';
 class FavoritesPlayerController {
   async index(request, response) {
     try {
-      const data = await FavoritesPlayerModel.find();
+      const { id } = request.params;
+      const data = await FavoritesPlayerModel.find({ account: id }).populate('player');
       return response.status(200).json({ data });
     } catch (error) {
       return response.status(400);
@@ -13,7 +14,7 @@ class FavoritesPlayerController {
   async show(request, response) {
     try {
       const { id } = request.params;
-      const data = await FavoritesPlayerModel.findById(id);
+      const data = await FavoritesPlayerModel.findById(id).populate(['player']);
 
       if (!data) {
         return response.status(404).json({ error: 'not found' });

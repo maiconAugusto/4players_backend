@@ -31,13 +31,13 @@ routes.post('/club', upload.single('file'), ClubController.store);
 routes.put('/club/:id', upload.single('file'), ClubController.update);
 routes.delete('/club/:id', ClubController.remove);
 
-routes.get('/favoritesclubs', FavoriteClubController.index);
+routes.get('/favoritesclubs/:id', FavoriteClubController.index);
 routes.get('/favoritesclub/:id', FavoriteClubController.show);
 routes.post('/favoritesclub', FavoriteClubController.store);
 routes.put('/favoritesclub/:id', FavoriteClubController.update);
 routes.delete('/favoritesclub/:id', FavoriteClubController.remove);
 
-routes.get('/favoritesplayers', FavoritePlayerController.index);
+routes.get('/favoritesplayers/:id', FavoritePlayerController.index);
 routes.get('/favoritesplayer/:id', FavoritePlayerController.show);
 routes.post('/favoritesplayer', FavoritePlayerController.store);
 routes.put('/favoritesplayer/:id', FavoritePlayerController.update);
