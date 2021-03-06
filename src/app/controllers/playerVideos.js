@@ -45,6 +45,9 @@ class VideosController {
       if (!playerExist) {
         return response.status(404).json({ error: 'player not found' });
       }
+
+      await videoServices.updateFile(request);
+
       const data = await VideoModel.findByIdAndUpdate({ _id: id }, request.body);
       return response.status(200).json({ data });
     } catch (error) {
@@ -55,11 +58,15 @@ class VideosController {
   async remove(request, response) {
     try {
       const { id } = request.params;
+
       const playerExist = await VideoModel.findById(id);
 
       if (!playerExist) {
         return response.status(404).json({ error: 'player not found' });
       }
+
+      await videoServices.removeFile(request);
+
       await VideoModel.findByIdAndDelete(id);
       return response.status(200).json({ data: 'deleted' });
     } catch (error) {

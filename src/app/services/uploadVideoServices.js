@@ -31,45 +31,45 @@ export default {
     unlink(request.file.path, () => {});
     return request;
   },
-  async updateFile(req, res, next) {
-    const { profilePath } = req.body;
+  async updateFile(request, res, next) {
+    const { videoPath } = request.body;
 
-    if (req.file === undefined) {
+    if (request.file === undefined) {
       return next();
     }
     const metadata = {
       metadata: {
-        firebaseStorageDownloadTokens: req.file.filename,
+        firebaseStorageDownloadTokens: request.file.filename,
       },
-      contentType: 'video',
-      cacheControl: 'public, max-age=31536000',
+      contentType: request.file.mimetype,
+      uploadType: 'media',
     };
     bucket.deleteFiles({
-      prefix: profilePath,
+      prefix: videoPath,
     }, async (err) => {
       if (!err) {
-        await bucket.upload(req.file.path, {
+        await bucket.upload(request.file.path, {
           gzip: true,
           metadata,
         });
 
-        const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(req.file.filename)}?alt=media&token=${req.file.filename}`);
-        req.body = {
-          ...req.body,
+        const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(request.file.filename)}?alt=media&token=${request.file.filename}`);
+        request.body = {
+          ...request.body,
           video: file,
-          video_path: req.file.filename,
+          video_path: request.file.filename,
         };
-        unlink(req.file.path, () => {});
+        unlink(request.file.path, () => {});
         return next();
       }
     });
     return null;
   },
-  async removeFile(req, res, next) {
-    const { profilePath } = req.params;
+  async removeFile(request, res, next) {
+    const { videoPath } = request.body;
 
     bucket.deleteFiles({
-      prefix: profilePath,
+      prefix: videoPath,
     }, (err) => {
       if (!err) {
         return next();
