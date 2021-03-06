@@ -1,4 +1,5 @@
 import VideoModel from '../models/playerVideos';
+import videoServices from '../services/uploadVideoServices';
 
 class VideosController {
   async index(request, response) {
@@ -27,6 +28,7 @@ class VideosController {
 
   async store(request, response) {
     try {
+      await videoServices.uploadFile(request);
       const data = await VideoModel(request.body).save();
 
       return response.status(200).json({ data });

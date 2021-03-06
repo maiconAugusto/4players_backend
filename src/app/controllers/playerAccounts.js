@@ -1,4 +1,5 @@
 import PlayerAccountModel from '../models/playersAccount';
+import updalodPhoto from '../services/uploadPhotoService';
 
 class PlayerAccountController {
   async index(request, response) {
@@ -27,6 +28,7 @@ class PlayerAccountController {
 
   async store(request, response) {
     try {
+      await updalodPhoto.uploadFile(request);
       const data = await PlayerAccountModel(request.body).save();
 
       return response.status(200).json({ data });
@@ -43,6 +45,9 @@ class PlayerAccountController {
       if (!playerExist) {
         return response.status(404).json({ error: 'player not found' });
       }
+
+      await updalodPhoto.updateFile(request);
+
       const data = await PlayerAccountModel.findByIdAndUpdate({ _id: id }, request.body);
       return response.status(200).json({ data });
     } catch (error) {

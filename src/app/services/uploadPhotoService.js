@@ -1,35 +1,37 @@
+/* eslint-disable consistent-return */
 import { unlink } from 'fs';
 import bucket from '../../configs/firebase';
 
 export default {
-  async uploadFile(req, res, next) {
-    if (req.file === undefined) {
-      return next();
+  async uploadFile(request) {
+    if (request.file === undefined) {
+      return request;
     }
     const metadata = {
       metadata: {
-        firebaseStorageDownloadTokens: req.file.filename,
+        firebaseStorageDownloadTokens: request.file.filename,
       },
       contentType: 'image/png',
       cacheControl: 'public, max-age=31536000',
     };
 
-    await bucket.upload(req.file.path, {
+    await bucket.upload(request.file.path, {
       gzip: true,
       metadata,
     });
 
-    const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(req.file.filename)}?alt=media&token=${req.file.filename}`);
-    req.body = {
-      ...req.body,
-      image_url: file,
-      image_path: req.file.filename,
+    const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(request.file.filename)}?alt=media&token=${request.file.filename}`);
+    request.body = {
+      ...request.body,
+      profile: file,
+      profile_path: request.file.filename,
     };
-    unlink(req.file.path, () => {});
-    return next();
+
+    unlink(request.file.path, () => {});
+    return request;
   },
   async updateFile(req, res, next) {
-    const { imagePath } = req.body;
+    const { profilePath } = req.body;
 
     if (req.file === undefined) {
       return next();
@@ -42,7 +44,7 @@ export default {
       cacheControl: 'public, max-age=31536000',
     };
     bucket.deleteFiles({
-      prefix: imagePath,
+      prefix: profilePath,
     }, async (err) => {
       if (!err) {
         await bucket.upload(req.file.path, {
@@ -53,20 +55,20 @@ export default {
         const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(req.file.filename)}?alt=media&token=${req.file.filename}`);
         req.body = {
           ...req.body,
-          image_url: file,
-          image_path: req.file.filename,
+          profile: file,
+          profile_path: req.file.filename,
         };
         unlink(req.file.path, () => {});
-        next();
+        return next();
       }
     });
     return null;
   },
   async removeFile(req, res, next) {
-    const { pathBuket } = req.params;
+    const { profilePath } = req.params;
 
     bucket.deleteFiles({
-      prefix: pathBuket,
+      prefix: profilePath,
     }, (err) => {
       if (!err) {
         return next();
