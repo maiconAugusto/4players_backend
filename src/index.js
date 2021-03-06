@@ -2,4 +2,4 @@ import App from './server/index';
 
 require('dotenv').config();
 
-App.listen(8080);
+App.listen(process.env.PORT);
