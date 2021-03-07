@@ -9,6 +9,7 @@ import FavoriteClubController from '../app/controllers/favoriteClub';
 import FavoritePlayerController from '../app/controllers/favoritePlayers';
 import PlayerVideoController from '../app/controllers/playerVideos';
 import AuthenticationController from '../app/controllers/authentication';
+import SearchPlayersController from '../app/controllers/searchPlayers';
 
 import middleware from '../middleware/authentication';
 
@@ -54,5 +55,7 @@ routes.get('/playervideo/:id', middleware, PlayerVideoController.show);
 routes.post('/playervideo', upload.single('file'), PlayerVideoController.store);
 routes.put('/playervideo/:id', upload.single('file'), PlayerVideoController.update);
 routes.delete('/playervideo/:id', PlayerVideoController.remove);
+
+routes.get('/search-players', SearchPlayersController.index);
 
 export default routes;
