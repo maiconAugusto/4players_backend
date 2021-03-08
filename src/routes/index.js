@@ -10,6 +10,7 @@ import FavoritePlayerController from '../app/controllers/favoritePlayers';
 import PlayerVideoController from '../app/controllers/playerVideos';
 import AuthenticationController from '../app/controllers/authentication';
 import SearchPlayersController from '../app/controllers/searchPlayers';
+import RecoveryPassword from '../app/controllers/recoveryPassword';
 
 import middleware from '../middleware/authentication';
 
@@ -57,5 +58,6 @@ routes.put('/playervideo/:id', upload.single('file'), PlayerVideoController.upda
 routes.delete('/playervideo/:id', PlayerVideoController.remove);
 
 routes.get('/search-players', SearchPlayersController.index);
+routes.post('/recovery-password', RecoveryPassword.update);
 
 export default routes;
