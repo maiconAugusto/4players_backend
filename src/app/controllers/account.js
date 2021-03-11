@@ -30,7 +30,7 @@ class Account {
       const existAccount = await AccountModel.findOne({ email: request.body.email });
 
       if (existAccount) {
-        return response.status(401).json({ error: 'user exist' });
+        return response.status(401).json({ error: 'Este e-mail já está sendo usado por um conta!' });
       }
       request.body.password = await Bcrypt.hash(request.body.password, Bcrypt.genSaltSync(8));
 
