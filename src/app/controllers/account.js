@@ -28,7 +28,6 @@ class Account {
   async store(request, response) {
     try {
       const existAccount = await AccountModel.findOne({ email: request.body.email });
-      console.log(request.body);
       if (existAccount) {
         return response.status(401).json({ error: 'Este e-mail já está sendo usado por um conta!' });
       }
