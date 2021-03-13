@@ -41,7 +41,7 @@ class PlayerAccountController {
     try {
       console.log(request.body);
       const { id } = request.params;
-      const playerExist = await PlayerAccountModel.findById(id);
+      const playerExist = await PlayerAccountModel.findOne({ account: id });
 
       if (!playerExist) {
         return response.status(404).json({ error: 'player not found' });
