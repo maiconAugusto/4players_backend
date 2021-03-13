@@ -6,7 +6,7 @@ const clubs = Mongoose.Schema({
   technician: { type: 'string', required: false },
   foundation: { type: 'string', required: false },
   president: { type: 'string', required: false },
-  championships: { type: Array, required: false },
+  championships: { type: 'string', required: false },
   webSite: { type: 'string', required: false },
   country: { type: 'string', required: false },
   profile: { type: 'string', required: false },
