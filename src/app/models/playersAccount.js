@@ -7,7 +7,6 @@ const players = Mongoose.Schema({
   profile: { type: 'string', required: false },
   profile_path: { type: 'string', required: false },
   playerHeight: { type: Number, required: false },
-  city: { type: 'string', required: false },
   country: { type: 'string', required: false },
   account: {
     type: Mongoose.Schema.Types.ObjectId,

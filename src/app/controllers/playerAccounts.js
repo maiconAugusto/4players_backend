@@ -39,6 +39,7 @@ class PlayerAccountController {
 
   async update(request, response) {
     try {
+      console.log(request.body);
       const { id } = request.params;
       const playerExist = await PlayerAccountModel.findById(id);
 
