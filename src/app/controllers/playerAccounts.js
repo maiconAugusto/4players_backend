@@ -14,7 +14,7 @@ class PlayerAccountController {
   async show(request, response) {
     try {
       const { id } = request.params;
-      const data = await PlayerAccountModel.findOne({ _id: id });
+      const data = await PlayerAccountModel.findOne({ account: id });
 
       if (!data) {
         return response.status(404).json({ error: 'player not found' });
@@ -53,7 +53,6 @@ class PlayerAccountController {
       const data = await PlayerAccountModel.findByIdAndUpdate({ _id: id }, request.body);
       return response.status(200).json({ data });
     } catch (error) {
-      console.log(error);
       return response.status(400).json({ error });
     }
   }
