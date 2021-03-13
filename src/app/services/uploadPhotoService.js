@@ -34,7 +34,7 @@ export default {
     const { profilePath } = req.body;
 
     if (req.file === undefined) {
-      return next();
+      return req;
     }
     const metadata = {
       metadata: {
