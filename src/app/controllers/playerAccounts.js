@@ -28,13 +28,11 @@ class PlayerAccountController {
 
   async store(request, response) {
     try {
-      console.log(request.body);
       await updalodPhoto.uploadFile(request);
       const data = await PlayerAccountModel(request.body).save();
 
       return response.status(200).json({ data });
     } catch (error) {
-      console.log(error);
       return response.status(400).json({ error });
     }
   }
@@ -45,7 +43,9 @@ class PlayerAccountController {
       const playerExist = await PlayerAccountModel.findOne({ account: id });
 
       if (!playerExist) {
-        return this.store();
+        await updalodPhoto.uploadFile(request);
+        const data = await PlayerAccountModel(request.body).save();
+        return response.status(200).json({ data });
       }
 
       await updalodPhoto.updateFile(request);
