@@ -1,7 +1,7 @@
 import Mongoose from 'mongoose';
 
 const clubs = Mongoose.Schema({
-  name: { type: 'string', required: false },
+  fullName: { type: 'string', required: false },
   stadium: { type: 'string', required: false },
   technician: { type: 'string', required: false },
   foundation: { type: 'string', required: false },
