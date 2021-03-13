@@ -34,7 +34,7 @@ routes.put('/player/:id', upload.single('file'), PlayerController.update);
 routes.delete('/player/:id', PlayerController.remove);
 
 routes.get('/clubs', ClubController.index);
-routes.get('/club/:id', middleware, ClubController.show);
+routes.get('/club/:id', ClubController.show);
 routes.post('/club', upload.single('file'), ClubController.store);
 routes.put('/club/:id', upload.single('file'), ClubController.update);
 routes.delete('/club/:id', ClubController.remove);

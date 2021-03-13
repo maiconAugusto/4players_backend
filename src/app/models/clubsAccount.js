@@ -8,7 +8,6 @@ const clubs = Mongoose.Schema({
   president: { type: 'string', required: false },
   championships: { type: Array, required: false },
   webSite: { type: 'string', required: false },
-  city: { type: 'string', required: false },
   country: { type: 'string', required: false },
   profile: { type: 'string', required: false },
   profile_path: { type: 'string', required: false },
