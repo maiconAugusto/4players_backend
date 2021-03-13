@@ -1,4 +1,5 @@
 import ClubAccountsModel from '../models/clubsAccount';
+import updalodPhoto from '../services/uploadPhotoService';
 
 class ClubAccountsController {
   async index(request, response) {
@@ -21,6 +22,7 @@ class ClubAccountsController {
 
   async store(request, response) {
     try {
+      await updalodPhoto.uploadFile(request);
       const data = await ClubAccountsModel(request.body).save();
       return response.status(200).json({ data });
     } catch (error) {
@@ -31,12 +33,16 @@ class ClubAccountsController {
   async update(request, response) {
     try {
       const { id } = request.params;
-      const clubExist = await ClubAccountsModel.findById(id);
+      const clubExist = await ClubAccountsModel.findOneAndUpdate({ account: id });
 
-      if (clubExist) {
-        return response.status(404).json({ error: 'not found' });
+      if (!clubExist) {
+        await updalodPhoto.uploadFile(request);
+        const data = await ClubAccountsModel(request.body).save();
+        return response.status(200).json({ data });
       }
-      const data = await ClubAccountsModel.findByIdAndUpdate({ _id: id }, request.body);
+      await updalodPhoto.updateFile(request);
+
+      const data = await ClubAccountsModel.findOneAndUpdate({ account: id }, request.body);
       return response.status(200).json({ data });
     } catch (error) {
       return response.status(400).json(error);
