@@ -28,18 +28,19 @@ class PlayerAccountController {
 
   async store(request, response) {
     try {
+      console.log(request.body);
       await updalodPhoto.uploadFile(request);
       const data = await PlayerAccountModel(request.body).save();
 
       return response.status(200).json({ data });
     } catch (error) {
+      console.log(error);
       return response.status(400).json({ error });
     }
   }
 
   async update(request, response) {
     try {
-      console.log(request.body);
       const { id } = request.params;
       const playerExist = await PlayerAccountModel.findOne({ account: id });
 
