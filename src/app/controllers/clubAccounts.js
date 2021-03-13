@@ -13,7 +13,8 @@ class ClubAccountsController {
 
   async show(request, response) {
     try {
-      const data = await ClubAccountsModel.findOne();
+      const { id } = request.params;
+      const data = await ClubAccountsModel.findById(id);
       return response.status(200).json({ data });
     } catch (error) {
       return response.status(400).json(error);
