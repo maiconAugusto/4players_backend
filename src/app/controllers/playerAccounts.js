@@ -45,7 +45,7 @@ class PlayerAccountController {
       const playerExist = await PlayerAccountModel.findOne({ account: id });
 
       if (!playerExist) {
-        return this.store(request, response);
+        return this.store();
       }
 
       await updalodPhoto.updateFile(request);
