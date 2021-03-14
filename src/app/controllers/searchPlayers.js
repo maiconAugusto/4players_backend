@@ -6,7 +6,7 @@ class SearchPlayersController {
       const {
         country, position, startDate, endDate,
       } = request.body;
-
+      console.log(country, position, startDate, endDate);
       const data = await PlayerModel.find();
       const filteredData = data
         .filter((item) => item.position.includes(position) && item.country === country
