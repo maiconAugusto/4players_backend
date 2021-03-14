@@ -57,7 +57,7 @@ routes.post('/playervideo', upload.single('file'), PlayerVideoController.store);
 routes.put('/playervideo/:id', upload.single('file'), PlayerVideoController.update);
 routes.delete('/playervideo/:id', PlayerVideoController.remove);
 
-routes.get('/search-players', SearchPlayersController.index);
+routes.post('/search-players', SearchPlayersController.index);
 routes.post('/recovery-password', RecoveryPassword.update);
 
 export default routes;

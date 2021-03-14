@@ -5,7 +5,7 @@ class SearchPlayersController {
     try {
       const {
         country, position, startDate, endDate,
-      } = request.query;
+      } = request.body;
 
       const data = await PlayerModel.find();
       const filteredData = data
