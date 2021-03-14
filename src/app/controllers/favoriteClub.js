@@ -29,6 +29,7 @@ class FavoritesClubController {
   async store(request, response) {
     try {
       const data = await FavoritesClubModel(request.body).save();
+
       return response.status(201).json({ data });
     } catch (error) {
       return response.status(400);
