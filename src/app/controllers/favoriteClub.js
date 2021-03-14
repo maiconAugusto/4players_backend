@@ -28,6 +28,12 @@ class FavoritesClubController {
 
   async store(request, response) {
     try {
+      const alreadyAdded = await FavoritesClubModel.findOne({ club: request.body.club });
+
+      if (alreadyAdded) {
+        return response.status(400).json({ error: 'Você já o adicionou como favorito!' });
+      }
+
       const data = await FavoritesClubModel(request.body).save();
 
       return response.status(201).json({ data });
