@@ -28,7 +28,7 @@ class FavoritesPlayerController {
 
   async store(request, response) {
     try {
-      const alreadyAdded = await FavoritesPlayerModel.findOne({ club: request.body.player });
+      const alreadyAdded = await FavoritesPlayerModel.findOne({ player: request.body.player });
 
       if (alreadyAdded) {
         return response.status(400).json({ error: 'Você já o adicionou como favorito!' });
