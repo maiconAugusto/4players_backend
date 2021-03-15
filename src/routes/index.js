@@ -11,6 +11,7 @@ import PlayerVideoController from '../app/controllers/playerVideos';
 import AuthenticationController from '../app/controllers/authentication';
 import SearchPlayersController from '../app/controllers/searchPlayers';
 import RecoveryPassword from '../app/controllers/recoveryPassword';
+import showAccount from '../app/controllers/showClubAccont';
 
 import middleware from '../middleware/authentication';
 
@@ -56,6 +57,8 @@ routes.get('/playervideo/:id', PlayerVideoController.show);
 routes.post('/playervideo', upload.single('file'), PlayerVideoController.store);
 routes.put('/playervideo/:id', upload.single('file'), PlayerVideoController.update);
 routes.delete('/playervideo/:id', PlayerVideoController.remove);
+
+routes.get('/showclub/:id', showAccount.show);
 
 routes.post('/search-players', SearchPlayersController.index);
 routes.post('/recovery-password', RecoveryPassword.update);
