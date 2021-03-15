@@ -7,5 +7,6 @@ const accounts = Mongoose.Schema({
   isDemo: { type: Boolean, required: true },
   isPlayer: { type: Boolean, required: true },
   isClub: { type: Boolean, required: true },
+  isManager: { type: Boolean, required: true },
 });
 export default Mongoose.model('accounts', accounts);
