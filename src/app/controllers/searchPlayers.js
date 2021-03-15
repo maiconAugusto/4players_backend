@@ -7,7 +7,7 @@ class SearchPlayersController {
       const {
         country, position: positions, startDate, endDate, heightInit, heightEnd,
       } = request.body;
-      console.log(country, positions, startDate, endDate, parseFloat(heightInit).toFixed(2), parseFloat(heightEnd).toFixed(2));
+
       const data = await PlayerModel.find();
 
       const filteredData = data
