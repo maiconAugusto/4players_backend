@@ -7,7 +7,7 @@ class SearchPlayersController {
       const {
         country, position: positions, startDate, endDate, heightInit, heightEnd,
       } = request.body;
-      console.log(country, positions, startDate, endDate, heightInit, heightEnd);
+      console.log(country, positions, startDate, endDate, parseFloat(heightInit).toFixed(2), parseFloat(heightEnd).toFixed(2));
       const data = await PlayerModel.find();
 
       const filteredData = data
@@ -23,7 +23,8 @@ class SearchPlayersController {
 
           return checkPositions(item.position, positions) === true && item.country === country
           && playerAgeYear >= queryAgeYearInit && playerAgeYear <= queryAgeYearEnd
-          && item.playerHeight >= heightInit && item.playerHeight <= heightEnd;
+          && item.playerHeight >= parseFloat(heightInit).toFixed(2)
+          && item.playerHeight <= parseFloat(heightEnd).toFixed(2);
         });
 
       return response.status(200).json({ data: filteredData });
