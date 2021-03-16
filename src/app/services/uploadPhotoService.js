@@ -3,7 +3,7 @@ import { unlink } from 'fs';
 import bucket from '../../configs/firebase';
 
 export default {
-  async uploadFile(request) {
+  async uploadFile(request, res, next) {
     if (request.file === undefined) {
       return request;
     }
@@ -26,7 +26,6 @@ export default {
       profile: file,
       profile_path: request.file.filename,
     };
-    console.log(request.body);
     unlink(request.file.path, () => {});
     return request;
   },
@@ -62,7 +61,8 @@ export default {
         return req;
       }
     });
-    return null;
+    console.log(req.body);
+    return req;
   },
   async removeFile(req, res, next) {
     const { profilePath } = req.params;
