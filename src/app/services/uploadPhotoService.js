@@ -59,7 +59,7 @@ export default {
           profile_path: req.file.filename,
         };
         unlink(req.file.path, () => {});
-        return next();
+        return req;
       }
     });
     return null;
