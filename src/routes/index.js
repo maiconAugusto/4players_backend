@@ -12,7 +12,7 @@ import AuthenticationController from '../app/controllers/authentication';
 import SearchPlayersController from '../app/controllers/searchPlayers';
 import RecoveryPassword from '../app/controllers/recoveryPassword';
 import showAccount from '../app/controllers/showClubAccont';
-import PlayerAccountByClubController from '../app/controllers/playerByClub';
+import playerAccountByClubController from '../app/controllers/playerByClub';
 
 import middleware from '../middleware/authentication';
 
@@ -60,7 +60,7 @@ routes.post('/playervideo', upload.single('file'), PlayerVideoController.store);
 routes.put('/playervideo/:id', upload.single('file'), PlayerVideoController.update);
 routes.delete('/playervideo/:id', PlayerVideoController.remove);
 
-routes.post('/playerbyclub', PlayerAccountByClubController.store);
+routes.post('/playerby-club', playerAccountByClubController.store);
 
 routes.get('/showclub/:id', showAccount.show);
 
