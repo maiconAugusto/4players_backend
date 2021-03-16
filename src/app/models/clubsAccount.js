@@ -12,6 +12,7 @@ const clubs = Mongoose.Schema({
   profile: { type: 'string', required: false },
   profile_path: { type: 'string', required: false },
   phone: { type: 'string', required: false },
+  isManager: { type: Boolean, required: true },
   account: {
     type: Mongoose.Schema.Types.ObjectId,
     ref: 'accounts',
