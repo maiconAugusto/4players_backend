@@ -26,9 +26,8 @@ export default {
       profile: file,
       profile_path: request.file.filename,
     };
-
-    unlink(request.file.path, () => {});
     console.log(request.body);
+    unlink(request.file.path, () => {});
     return request;
   },
   async updateFile(req, res, next) {
