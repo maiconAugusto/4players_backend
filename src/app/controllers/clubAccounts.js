@@ -23,6 +23,15 @@ class ClubAccountsController {
 
   async store(request, response) {
     try {
+      const { id } = request.params;
+      const exitClub = await ClubAccountsModel.findOne({ account: id });
+
+      if (!exitClub) {
+        await updalodPhoto.uploadFile(request);
+        const data = await ClubAccountsModel(request.body).save();
+        return response.status(200).json({ data });
+      }
+
       await updalodPhoto.uploadFile(request);
       const data = await ClubAccountsModel(request.body).save();
       return response.status(200).json({ data });
