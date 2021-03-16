@@ -28,6 +28,7 @@ export default {
     };
 
     unlink(request.file.path, () => {});
+    console.log(request.body);
     return request;
   },
   async updateFile(req, res, next) {
