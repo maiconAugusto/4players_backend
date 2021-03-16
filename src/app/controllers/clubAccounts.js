@@ -23,20 +23,10 @@ class ClubAccountsController {
 
   async store(request, response) {
     try {
-      const { id } = request.params;
-      const exitClub = await ClubAccountsModel.findOne({ account: id });
-
-      if (!exitClub) {
-        await updalodPhoto.uploadFile(request);
-        const data = await ClubAccountsModel(request.body).save();
-        return response.status(200).json({ data });
-      }
-
       await updalodPhoto.uploadFile(request);
       const data = await ClubAccountsModel(request.body).save();
       return response.status(200).json({ data });
     } catch (error) {
-      console.log(error);
       return response.status(400).json(error);
     }
   }
@@ -56,6 +46,7 @@ class ClubAccountsController {
       const data = await ClubAccountsModel.findOneAndUpdate({ account: id }, request.body);
       return response.status(200).json({ data });
     } catch (error) {
+      console.log(error);
       return response.status(400).json(error);
     }
   }
