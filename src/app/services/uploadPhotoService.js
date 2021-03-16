@@ -42,26 +42,19 @@ export default {
       contentType: 'image/png',
       cacheControl: 'public, max-age=31536000',
     };
-    bucket.deleteFiles({
-      prefix: profilePath,
-    }, async (err) => {
-      if (!err) {
-        await bucket.upload(req.file.path, {
-          gzip: true,
-          metadata,
-        });
-
-        const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(req.file.filename)}?alt=media&token=${req.file.filename}`);
-        req.body = {
-          ...req.body,
-          profile: file,
-          profile_path: req.file.filename,
-        };
-        console.log(req.body);
-        unlink(req.file.path, () => {});
-        return req;
-      }
+    bucket.deleteFiles({ prefix: profilePath });
+    await bucket.upload(req.file.path, {
+      gzip: true,
+      metadata,
     });
+
+    const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(req.file.filename)}?alt=media&token=${req.file.filename}`);
+    req.body = {
+      ...req.body,
+      profile: file,
+      profile_path: req.file.filename,
+    };
+    unlink(req.file.path, () => {});
     return req;
   },
   async removeFile(req, res, next) {
