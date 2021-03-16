@@ -57,11 +57,11 @@ export default {
           profile: file,
           profile_path: req.file.filename,
         };
+        console.log(req.body);
         unlink(req.file.path, () => {});
         return req;
       }
     });
-    console.log(req.body);
     return req;
   },
   async removeFile(req, res, next) {
