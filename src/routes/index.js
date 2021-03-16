@@ -59,7 +59,7 @@ routes.post('/playervideo', upload.single('file'), PlayerVideoController.store);
 routes.put('/playervideo/:id', upload.single('file'), PlayerVideoController.update);
 routes.delete('/playervideo/:id', PlayerVideoController.remove);
 
-routes.post('/player', PlayerAccountByClubController.store);
+routes.post('/playerbyclub', PlayerAccountByClubController.store);
 
 routes.get('/showclub/:id', showAccount.show);
 
