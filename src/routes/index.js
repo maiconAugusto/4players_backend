@@ -53,6 +53,7 @@ routes.put('/favoritesplayer/:id', FavoritePlayerController.update);
 routes.delete('/favoritesplayer/:id', FavoritePlayerController.remove);
 
 routes.post('/playerby-club', playerAccountByClubController.store);
+
 routes.get('/playervideos/:id', PlayerVideoController.index);
 routes.get('/playervideo/:id', PlayerVideoController.show);
 routes.post('/playervideo', upload.single('file'), PlayerVideoController.store);
