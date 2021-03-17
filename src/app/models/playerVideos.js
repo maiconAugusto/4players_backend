@@ -7,6 +7,10 @@ const playerVideo = Mongoose.Schema({
     type: Mongoose.Schema.Types.ObjectId,
     ref: 'accounts',
   },
+  userId: {
+    type: Mongoose.Schema.Types.ObjectId,
+    ref: 'players',
+  },
 });
 
 export default Mongoose.model('playerVideo', playerVideo);
