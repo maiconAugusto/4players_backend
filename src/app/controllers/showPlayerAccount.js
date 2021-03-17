@@ -2,6 +2,21 @@ import PlayerAccountModel from '../models/playersAccount';
 import updalodPhoto from '../services/uploadPhotoService';
 
 class ShowPlayerAccountController {
+  async index(request, response) {
+    try {
+      const { id } = request.params;
+      const data = await PlayerAccountModel.find({ account: id });
+
+      if (!data) {
+        return response.status(404).json({ error: 'players not found' });
+      }
+
+      return response.status(200).json({ data });
+    } catch (error) {
+      return response.status(400).json({ error });
+    }
+  }
+
   async show(request, response) {
     try {
       const { id } = request.params;
