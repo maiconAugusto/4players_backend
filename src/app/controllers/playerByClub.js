@@ -8,8 +8,6 @@ class PlayerAccountByClubController {
       const data = await PlayerAccountModel(request.body).save();
       return response.status(200).json({ data });
     } catch (error) {
-      console.log(error);
-      console.log(request.body);
       return response.status(400).json({ error });
     }
   }
