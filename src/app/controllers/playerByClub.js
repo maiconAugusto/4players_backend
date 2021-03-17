@@ -6,7 +6,6 @@ class PlayerAccountByClubController {
     try {
       await updalodPhoto.uploadFile(request);
       const data = await PlayerAccountModel(request.body).save();
-      console.log(request.body);
       return response.status(200).json({ data });
     } catch (error) {
       console.log(error);
