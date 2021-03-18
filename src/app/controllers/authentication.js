@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import AccountModel from '../models/account';
@@ -22,15 +23,15 @@ class AuthenticationController {
       if (verifyPassword === false) {
         return response.status(401).json({ error: 'Senha inválida' });
       }
-      const { id } = account;
+      const { _id } = account;
       account.password = undefined;
 
-      const master = await PlayerAccount.findOne({ account: account.account });
+      const master = await PlayerAccount.findOne({ account: _id });
 
       return response.status(200).json({
         master,
         account,
-        token: jwt.sign({ id }, process.env.HASH, { expiresIn: process.env.EXPIRESIN }),
+        token: jwt.sign({ _id }, process.env.HASH, { expiresIn: process.env.EXPIRESIN }),
       });
     } catch (error) {
       return response.status(404).json({ error });
