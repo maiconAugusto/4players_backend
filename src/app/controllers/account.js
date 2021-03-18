@@ -40,6 +40,12 @@ class Account {
       const userPlayer = {
         account: account._id,
         fullName: '',
+        position: [],
+        club: '',
+        nationality: '',
+        phone: '',
+        dominantfoot: '',
+        country: '',
       };
 
       const userClub = {
