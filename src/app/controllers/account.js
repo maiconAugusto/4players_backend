@@ -1,5 +1,8 @@
+/* eslint-disable no-underscore-dangle */
 import Bcrypt from 'bcrypt';
 import AccountModel from '../models/account';
+import PlayerAccountModel from '../models/playersAccount';
+import clubAccountModel from '../models/clubsAccount';
 
 class Account {
   async index(request, response) {
@@ -34,6 +37,29 @@ class Account {
       request.body.password = await Bcrypt.hash(request.body.password, Bcrypt.genSaltSync(8));
 
       const account = await AccountModel(request.body).save();
+      const userPlayer = {
+        account: account._id,
+        fullName: '',
+      };
+
+      const userClub = {
+        account: account._id,
+        fullName: '',
+        stadium: '',
+        technician: '',
+        foundation: '',
+        president: '',
+        championships: '',
+        webSite: '',
+        phone: '',
+        isManager: false,
+      };
+
+      if (request.body.isPlayer === true) {
+        await PlayerAccountModel(userPlayer).save();
+      } else {
+        await clubAccountModel(userClub).save();
+      }
       return response.status(201).json({ data: account });
     } catch (error) {
       return response.status(400).json({ data: error });

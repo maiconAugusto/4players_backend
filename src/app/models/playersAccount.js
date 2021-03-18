@@ -1,9 +1,9 @@
 import Mongoose from 'mongoose';
 
 const players = Mongoose.Schema({
-  fullName: { type: 'string', required: true },
-  playerAge: { type: 'string', required: true },
-  position: { type: Array, required: true },
+  fullName: { type: 'string', required: false },
+  playerAge: { type: 'string', required: false },
+  position: { type: Array, required: false },
   profile: { type: 'string', required: false },
   profile_path: { type: 'string', required: false },
   playerHeight: { type: Number, required: false },
