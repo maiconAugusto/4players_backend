@@ -1,6 +1,7 @@
 import Bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import AccountModel from '../models/account';
+import PlayerAccount from '../models/playersAccount';
 
 class AuthenticationController {
   async store(request, response) {
@@ -24,7 +25,10 @@ class AuthenticationController {
       const { id } = account;
       account.password = undefined;
 
+      const master = await PlayerAccount.findOne({ account: account.account });
+
       return response.status(200).json({
+        master,
         account,
         token: jwt.sign({ id }, process.env.HASH, { expiresIn: process.env.EXPIRESIN }),
       });
