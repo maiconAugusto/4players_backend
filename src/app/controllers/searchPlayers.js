@@ -29,6 +29,7 @@ class SearchPlayersController {
 
       return response.status(200).json({ data: filteredData });
     } catch (error) {
+      console.log(error);
       return response.status(400).json({ error });
     }
   }
