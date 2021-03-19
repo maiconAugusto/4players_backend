@@ -1,4 +1,4 @@
-import EventModel from '../models/playerVideos';
+import EventModel from '../models/event';
 import updalodPhoto from '../services/uploadPhotoService';
 
 class EventController {
