@@ -1,4 +1,5 @@
 import EventModel from '../models/playerVideos';
+import updalodPhoto from '../services/uploadPhotoService';
 
 class EventController {
   async index(request, response) {
@@ -27,6 +28,7 @@ class EventController {
 
   async store(request, response) {
     try {
+      await updalodPhoto.updateFile(request);
       const data = await EventModel(request.body).save();
 
       return response.status(200).json({ data });
@@ -43,8 +45,6 @@ class EventController {
       if (!playerExist) {
         return response.status(404).json({ error: 'event not found' });
       }
-
-      await EventModel.updateFile(request);
 
       const data = await EventModel.findByIdAndUpdate({ _id: id }, request.body);
       return response.status(200).json({ data });
