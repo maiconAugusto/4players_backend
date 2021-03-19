@@ -73,7 +73,7 @@ routes.get('/events', EventController.index);
 routes.get('/event/:id', EventController.show);
 routes.put('/event/:id', EventController.update);
 routes.delete('/event/:id', EventController.remove);
-routes.post('/event', EventController.store);
+routes.post('/event', upload.single('file'), EventController.store);
 
 routes.post('/search-players', SearchPlayersController.index);
 routes.post('/recovery-password', RecoveryPassword.update);
