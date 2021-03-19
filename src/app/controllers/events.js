@@ -4,7 +4,7 @@ import updalodPhoto from '../services/uploadPhotoService';
 class EventController {
   async index(request, response) {
     try {
-      const data = await EventModel.find({ }).populate('account');
+      const data = await EventModel.find();
       return response.status(200).json({ data });
     } catch (error) {
       return response.status(400).json({ error });
@@ -28,7 +28,6 @@ class EventController {
 
   async store(request, response) {
     try {
-      console.log(request.body);
       await updalodPhoto.updateFile(request);
       const data = await EventModel(request.body).save();
 
