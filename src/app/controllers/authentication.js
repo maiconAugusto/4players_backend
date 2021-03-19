@@ -3,6 +3,7 @@ import Bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import AccountModel from '../models/account';
 import PlayerAccount from '../models/playersAccount';
+import ClubAccount from '../models/clubsAccount';
 
 class AuthenticationController {
   async store(request, response) {
@@ -27,9 +28,10 @@ class AuthenticationController {
       account.password = undefined;
 
       const master = await PlayerAccount.findOne({ account: _id });
+      const masterClub = await ClubAccount.findOne({ account: _id });
 
       return response.status(200).json({
-        master,
+        master: master == null ? masterClub : master,
         account,
         token: jwt.sign({ _id }, process.env.HASH, { expiresIn: process.env.EXPIRESIN }),
       });
