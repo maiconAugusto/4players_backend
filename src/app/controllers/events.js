@@ -28,7 +28,7 @@ class EventController {
 
   async store(request, response) {
     try {
-      await updalodPhoto.updateFile(request);
+      await updalodPhoto.uploadFile(request);
       const data = await EventModel(request.body).save();
 
       return response.status(201).json({ data });
