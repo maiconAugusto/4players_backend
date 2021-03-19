@@ -28,10 +28,11 @@ class EventController {
 
   async store(request, response) {
     try {
+      console.log(request.body);
       await updalodPhoto.updateFile(request);
       const data = await EventModel(request.body).save();
 
-      return response.status(200).json({ data });
+      return response.status(201).json({ data });
     } catch (error) {
       return response.status(400).json({ error });
     }
