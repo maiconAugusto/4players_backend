@@ -35,6 +35,12 @@ export default {
     if (req.file === undefined) {
       return res;
     }
+
+    if (profilePath === undefined) {
+      await this.uploadFile();
+      return req;
+    }
+
     const metadata = {
       metadata: {
         firebaseStorageDownloadTokens: req.file.filename,
