@@ -40,11 +40,10 @@ class PlayerAccountController {
   async update(request, response) {
     try {
       const { id } = request.params;
-      const playerExist = await PlayerAccountModel.findOne({ account: id });
 
-      if (!playerExist) {
+      if (request.body.profilePath === undefined) {
         await updalodPhoto.uploadFile(request);
-        const data = await PlayerAccountModel(request.body).save();
+        const data = await PlayerAccountModel.findOneAndUpdate({ account: id }, request.body);
         return response.status(200).json({ data });
       }
 

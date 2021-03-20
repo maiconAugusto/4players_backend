@@ -34,11 +34,10 @@ class ClubAccountsController {
   async update(request, response) {
     try {
       const { id } = request.params;
-      const clubExist = await ClubAccountsModel.findOneAndUpdate({ account: id });
 
-      if (!clubExist) {
+      if (request.body.profilePath === undefined) {
         await updalodPhoto.uploadFile(request);
-        const data = await ClubAccountsModel(request.body).save();
+        const data = await ClubAccountsModel.findOneAndUpdate({ account: id }, request.body);
         return response.status(200).json({ data });
       }
       await updalodPhoto.updateFile(request);
