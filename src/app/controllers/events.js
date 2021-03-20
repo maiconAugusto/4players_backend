@@ -4,7 +4,7 @@ import updalodPhoto from '../services/uploadPhotoService';
 class EventController {
   async index(request, response) {
     try {
-      const data = await EventModel.find();
+      const data = await EventModel.find().sort({ date: -1 }).limit(50);
       return response.status(200).json({ data });
     } catch (error) {
       return response.status(400).json({ error });
