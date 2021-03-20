@@ -32,8 +32,8 @@ export default {
   async updateFile(req, res, next) {
     const { profilePath } = req.body;
 
-    if (req.file === undefined || profilePath === undefined) {
-      res.status(400).json({ error: 'error path' });
+    if (req.file === undefined) {
+      return res;
     }
     const metadata = {
       metadata: {
