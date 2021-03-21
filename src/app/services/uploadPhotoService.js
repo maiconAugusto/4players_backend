@@ -36,11 +36,11 @@ export default {
       return res;
     }
 
-    if (profilePath === undefined) {
+    if (profilePath === undefined || profilePath === '' || profilePath === null) {
       await this.uploadFile();
       return req;
     }
-    console.log('profilePath', profilePath);
+
     const metadata = {
       metadata: {
         firebaseStorageDownloadTokens: req.file.filename,
