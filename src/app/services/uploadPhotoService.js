@@ -40,7 +40,7 @@ export default {
       await this.uploadFile();
       return req;
     }
-
+    console.log('profilePath', profilePath);
     const metadata = {
       metadata: {
         firebaseStorageDownloadTokens: req.file.filename,
