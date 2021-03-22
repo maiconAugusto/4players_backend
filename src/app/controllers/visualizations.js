@@ -13,7 +13,8 @@ class VisualizationController {
 
   async store(request, response) {
     try {
-      const verifyVisualization = await VisualizationModel.findOne({ club: request.body.club });
+      const verifyVisualization = await VisualizationModel
+        .findOne({ club: request.body.club, player: request.body.player });
 
       if (verifyVisualization) {
         return response.status(400).json({ error: 'exist' });
