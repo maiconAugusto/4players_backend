@@ -16,6 +16,7 @@ import playerAccountByClubController from '../app/controllers/playerByClub';
 import showPlayerAccountController from '../app/controllers/showPlayerAccount';
 import videosByClubController from '../app/controllers/showVideoPlayer';
 import EventController from '../app/controllers/events';
+import Visualization from '../app/controllers/visualizations';
 
 import middleware from '../middleware/authentication';
 
@@ -77,5 +78,8 @@ routes.post('/event', upload.single('file'), EventController.store);
 
 routes.post('/search-players', SearchPlayersController.index);
 routes.post('/recovery-password', RecoveryPassword.update);
+
+routes.get('/visualizations/:id', Visualization.index);
+routes.post('/visualizations', Visualization.store);
 
 export default routes;
