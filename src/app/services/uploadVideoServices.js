@@ -20,7 +20,7 @@ export default {
       gzip: true,
       metadata,
     });
-
+    console.log(request.file);
     const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(request.file.filename)}?alt=media&token=${request.file.filename}`);
     request.body = {
       ...request.body,
