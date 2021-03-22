@@ -83,6 +83,6 @@ routes.post('/recovery-password', RecoveryPassword.update);
 routes.get('/visualizations/:id', Visualization.index);
 routes.post('/visualizations', Visualization.store);
 
-routes.get('/feed/:id', FeedController.index);
+routes.get('/feed', FeedController.index);
 
 export default routes;
