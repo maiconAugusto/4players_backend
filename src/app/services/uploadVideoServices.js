@@ -14,18 +14,19 @@ export default {
       },
       contentType: request.file.mimetype,
       uploadType: 'media',
+
     };
 
     await bucket.upload(request.file.path, {
       gzip: true,
       metadata,
     });
-    console.log(request.file);
-    const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(request.file.filename)}?alt=media&token=${request.file.filename}`);
+    const value = request.file.filename.split('.')[0];
+    const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(`${value}.mp4`)}?alt=media&token=${value}.mp4`);
     request.body = {
       ...request.body,
       video: file,
-      video_path: request.file.filename,
+      video_path: `${value}.mp4`,
     };
 
     unlink(request.file.path, () => {});
