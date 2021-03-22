@@ -37,7 +37,7 @@ export default {
     }
 
     if (profilePath === undefined || profilePath === '' || profilePath === null) {
-      await this.uploadFile();
+      await this.uploadFile(req);
       return req;
     }
 
