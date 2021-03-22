@@ -7,10 +7,10 @@ export default {
     if (request.file === undefined) {
       return request;
     }
-
+    const value = request.file.filename.split('.')[0];
     const metadata = {
       metadata: {
-        firebaseStorageDownloadTokens: request.file.filename,
+        firebaseStorageDownloadTokens: `${value}.mp4`,
       },
       contentType: request.file.mimetype,
       uploadType: 'media',
@@ -21,7 +21,6 @@ export default {
       gzip: true,
       metadata,
     });
-    const value = request.file.filename.split('.')[0];
     const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(`${value}.mp4`)}?alt=media&token=${value}.mp4`);
     request.body = {
       ...request.body,
