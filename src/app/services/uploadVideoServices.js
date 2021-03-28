@@ -8,6 +8,8 @@ export default {
       return request;
     }
 
+    console.log(request.file)
+
     const metadata = {
       metadata: {
         firebaseStorageDownloadTokens: request.file.filename,

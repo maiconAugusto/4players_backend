@@ -11,6 +11,7 @@ const playerVideo = Mongoose.Schema({
     type: Mongoose.Schema.Types.ObjectId,
     ref: 'players',
   },
+  date: { type: 'string', required: false },
 });
 
 export default Mongoose.model('playerVideo', playerVideo);
