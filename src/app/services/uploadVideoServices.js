@@ -1,6 +1,7 @@
 /* eslint-disable consistent-return */
-import { unlink } from 'fs';
+import { unlink, rename } from 'fs';
 import bucket from '../../configs/firebase';
+const fs = require('fs');
 
 export default {
   async uploadFile(request) {
@@ -8,28 +9,34 @@ export default {
       return request;
     }
 
-    console.log(request.file)
+    const path = request.file.filename.split('.')[0];
+
+    fs.rename(request.file.path, `${path}.mp4`, () => {
+    });
+
 
     const metadata = {
       metadata: {
-        firebaseStorageDownloadTokens: request.file.filename,
+        firebaseStorageDownloadTokens: `${path}.mp4`,
       },
-      contentType: request.file.mimetype,
+      contentType: 'video/mp4',
       uploadType: 'media',
     };
 
-    await bucket.upload(request.file.path, {
+
+    await bucket.upload(`${path}.mp4`, {
       gzip: true,
       metadata,
     });
 
-    const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(request.file.filename)}?alt=media&token=${request.file.filename}`);
+    const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(`${path}.mp4`)}?alt=media&token=${path}.mp4`);
     request.body = {
       ...request.body,
       video: file,
-      video_path: request.file.filename,
+      video_path: `${path}.mp4`,
     };
 
+    unlink(`${path}.mp4`, () => {});
     unlink(request.file.path, () => {});
     return request;
   },
