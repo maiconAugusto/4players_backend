@@ -17,7 +17,7 @@ export default {
 
     const metadata = {
       metadata: {
-        firebaseStorageDownloadTokens: `${path}.mp4`,
+        firebaseStorageDownloadTokens: `${path}`,
       },
       contentType: 'video/mp4',
       uploadType: 'media',
@@ -29,7 +29,7 @@ export default {
       metadata,
     });
 
-    const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(`${path}.mp4`)}?alt=media&token=${path}.mp4`);
+    const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(`${path}.mp4`)}?alt=media&token=${path}`);
     request.body = {
       ...request.body,
       video: file,
