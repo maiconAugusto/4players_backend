@@ -1,32 +1,17 @@
 /* eslint-disable consistent-return */
 import { unlink } from 'fs';
 import bucket from '../../configs/firebase';
+import S3 from 'aws-s3';
+
 
 export default {
   async uploadFile(request, res, next) {
-    if (request.file === undefined) {
-      return request;
-    }
-    const metadata = {
-      metadata: {
-        firebaseStorageDownloadTokens: request.file.filename,
-      },
-      contentType: 'image/png',
-      cacheControl: 'public, max-age=31536000',
-    };
-
-    await bucket.upload(request.file.path, {
-      gzip: true,
-      metadata,
-    });
-
-    const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(request.file.filename)}?alt=media&token=${request.file.filename}`);
     request.body = {
       ...request.body,
-      profile: file,
-      profile_path: request.file.filename,
+      profile: request.file.location,
+      profile_path: request.file.key,
     };
-    unlink(request.file.path, () => {});
+
     return request;
   },
   async updateFile(req, res, next) {
@@ -41,26 +26,27 @@ export default {
       return req;
     }
 
-    const metadata = {
-      metadata: {
-        firebaseStorageDownloadTokens: req.file.filename,
-      },
-      contentType: 'image/png',
-      cacheControl: 'public, max-age=31536000',
-    };
-    bucket.deleteFiles({ prefix: profilePath });
-    await bucket.upload(req.file.path, {
-      gzip: true,
-      metadata,
-    });
+  //   const config = {
+  //     dirName: '',
+  //     bucketName: process.env.BUCKET_NAME,
+  //     region: process.env.AWS_DEFAULT_REGION,
+  //     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  // }
 
-    const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(req.file.filename)}?alt=media&token=${req.file.filename}`);
+  // const S3Client = new S3(config);
+
+  // S3Client
+  //   .deleteFile('9e033acb01b6401100dec5b91be2521a-image_picker8340824595390511290.jpg')
+  //   .then(response => console.log(response))
+  //   .catch(err => console.error(err));
+
     req.body = {
       ...req.body,
-      profile: file,
-      profile_path: req.file.filename,
+      profile: req.file.location,
+      profile_path: req.file.key,
     };
-    unlink(req.file.path, () => {});
+
     return req;
   },
   async removeFile(req, res, next) {
