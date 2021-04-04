@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import { unlink } from 'fs';
 import bucket from '../../configs/firebase';
-import S3 from 'aws-s3';
+var AWS = require('aws-sdk');
 
 
 export default {
@@ -26,20 +26,13 @@ export default {
       return req;
     }
 
-  //   const config = {
-  //     dirName: '',
-  //     bucketName: process.env.BUCKET_NAME,
-  //     region: process.env.AWS_DEFAULT_REGION,
-  //     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  // }
+    const params = {
+      Bucket: process.env.BUCKET_NAME,
+      Key: profilePath
+    };
 
-  // const S3Client = new S3(config);
-
-  // S3Client
-  //   .deleteFile('9e033acb01b6401100dec5b91be2521a-image_picker8340824595390511290.jpg')
-  //   .then(response => console.log(response))
-  //   .catch(err => console.error(err));
+    const s3 = new AWS.S3();
+    s3.deleteObject(params,()=>{});
 
     req.body = {
       ...req.body,
