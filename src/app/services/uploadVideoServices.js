@@ -9,35 +9,35 @@ export default {
       return request;
     }
 
-    const path = request.file.filename.split('.')[0];
+    // const path = request.file.filename.split('.')[0];
 
-    fs.rename(request.file.path, `${path}.mp4`, () => {
-    });
-
-
-    const metadata = {
-      metadata: {
-        firebaseStorageDownloadTokens: `${path}`,
-      },
-      contentType: 'video/mp4',
-      uploadType: 'media',
-    };
+    // fs.rename(request.file.path, `${path}.mp4`, () => {
+    // });
 
 
-    await bucket.upload(`${path}.mp4`, {
-      gzip: true,
-      metadata,
-    });
+    // const metadata = {
+    //   metadata: {
+    //     firebaseStorageDownloadTokens: `${path}.mp4`,
+    //   },
+    //   contentType: 'video/mp4',
+    //   uploadType: 'media',
+    // };
 
-    const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(`${path}.mp4`)}?alt=media&token=${path}`);
+
+    // await bucket.upload(`${path}.mp4`, {
+    //   gzip: true,
+    //   metadata,
+    // });
+
+    // const file = await Promise.resolve(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(`${path}.mp4`)}?alt=media&token=${path}.mp4`);
     request.body = {
       ...request.body,
-      video: file,
-      video_path: `${path}.mp4`,
+      video: request.file.location,
+      video_path: request.file.key,
     };
 
-    unlink(`${path}.mp4`, () => {});
-    unlink(request.file.path, () => {});
+    // unlink(`${path}.mp4`, () => {});
+    // unlink(request.file.path, () => {});
     return request;
   },
   async updateFile(request, res, next) {
