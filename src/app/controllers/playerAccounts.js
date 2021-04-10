@@ -41,7 +41,7 @@ class PlayerAccountController {
     try {
       const { id } = request.params;
 
-      if (request.body.profilePath === undefined) {
+      if (request.body.profilePath === undefined && request.body.profilePath !== 'notFile') {
         await updalodPhoto.uploadFile(request);
         const data = await PlayerAccountModel.findOneAndUpdate({ account: id }, request.body);
         return response.status(200).json({ data });

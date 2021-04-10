@@ -34,6 +34,8 @@ export default {
     const s3 = new AWS.S3();
     s3.deleteObject(params,()=>{});
 
+    console.log(req.file)
+
     req.body = {
       ...req.body,
       profile: req.file.location,
