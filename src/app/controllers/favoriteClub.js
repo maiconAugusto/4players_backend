@@ -5,6 +5,7 @@ class FavoritesClubController {
     try {
       const { id } = request.params;
       const data = await FavoritesClubModel.find({ account: id }).populate('club');
+
       return response.status(200).json({ data });
     } catch (error) {
       return response.status(400);
