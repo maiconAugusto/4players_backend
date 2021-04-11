@@ -29,13 +29,11 @@ class VideosController {
 
   async store(request, response) {
     try {
-      console.log(request.file)
       await videoServices.uploadFile(request);
       const data = await VideoModel(request.body).save();
 
       return response.status(200).json({ data });
     } catch (error) {
-      console.log(error)
       return response.status(400).json({ error });
     }
   }

@@ -3,6 +3,7 @@ import Mongoose from 'mongoose';
 const playerVideo = Mongoose.Schema({
   video: { type: 'string', required: false },
   video_path: { type: 'string', required: false },
+  description: { type: 'string', required: true },
   account: {
     type: Mongoose.Schema.Types.ObjectId,
     ref: 'accounts',
